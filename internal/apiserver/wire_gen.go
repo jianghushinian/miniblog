@@ -13,11 +13,12 @@
 package apiserver
 
 import (
+	"github.com/onexstack/onexstack/pkg/authz"
+
 	"github.com/onexstack/miniblog/internal/apiserver/biz"
 	"github.com/onexstack/miniblog/internal/apiserver/pkg/validation"
 	"github.com/onexstack/miniblog/internal/apiserver/store"
 	"github.com/onexstack/miniblog/internal/pkg/server"
-	"github.com/onexstack/onexstack/pkg/authz"
 )
 
 // Injectors from wire.go:
