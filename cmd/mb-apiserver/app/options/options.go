@@ -15,6 +15,8 @@ import (
 	"github.com/spf13/pflag"
 	utilerrors "k8s.io/apimachinery/pkg/util/errors"
 	"k8s.io/apimachinery/pkg/util/sets"
+
+	"github.com/onexstack/miniblog/internal/apiserver"
 )
 
 // 定义支持的服务器模式集合.
@@ -69,4 +71,13 @@ func (o *ServerOptions) Validate() error {
 
 	// 合并所有错误并返回
 	return utilerrors.NewAggregate(errs)
+}
+
+// Config 基于 ServerOptions 构建 apiserver.Config.
+func (o *ServerOptions) Config() (*apiserver.Config, error) {
+	return &apiserver.Config{
+		ServerMode: o.ServerMode,
+		JWTKey:     o.JWTKey,
+		Expiration: o.Expiration,
+	}, nil
 }
