@@ -9,6 +9,7 @@ require (
 	github.com/spf13/viper v1.19.0
 	github.com/stretchr/testify v1.10.0
 	go.uber.org/automaxprocs v1.6.0
+	go.uber.org/zap v1.27.0
 	k8s.io/apimachinery v0.32.1
 )
 
