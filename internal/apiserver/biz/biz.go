@@ -10,10 +10,10 @@ package biz
 
 import (
 	"github.com/google/wire"
+	"github.com/onexstack/onexstack/pkg/authz"
 
 	postv1 "github.com/onexstack/miniblog/internal/apiserver/biz/v1/post"
 	userv1 "github.com/onexstack/miniblog/internal/apiserver/biz/v1/user"
-	"github.com/onexstack/miniblog/pkg/auth"
 
 	// Post V2 版本（未实现，仅展示用）
 	// postv2 "github.com/onexstack/miniblog/internal/apiserver/biz/v2/post".
@@ -39,14 +39,14 @@ type IBiz interface {
 // biz 是 IBiz 的一个具体实现.
 type biz struct {
 	store store.IStore
-	authz *auth.Authz
+	authz *authz.Authz
 }
 
 // 确保 biz 实现了 IBiz 接口.
 var _ IBiz = (*biz)(nil)
 
 // NewBiz 创建一个 IBiz 类型的实例.
-func NewBiz(store store.IStore, authz *auth.Authz) *biz {
+func NewBiz(store store.IStore, authz *authz.Authz) *biz {
 	return &biz{store: store, authz: authz}
 }
 

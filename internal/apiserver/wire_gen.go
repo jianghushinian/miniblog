@@ -17,7 +17,7 @@ import (
 	"github.com/onexstack/miniblog/internal/apiserver/pkg/validation"
 	"github.com/onexstack/miniblog/internal/apiserver/store"
 	"github.com/onexstack/miniblog/internal/pkg/server"
-	"github.com/onexstack/miniblog/pkg/auth"
+	"github.com/onexstack/onexstack/pkg/authz"
 )
 
 // Injectors from wire.go:
@@ -29,12 +29,12 @@ func InitializeWebServer(config *Config) (server.Server, error) {
 		return nil, err
 	}
 	datastore := store.NewStore(db)
-	v := auth.DefaultOptions()
-	authz, err := auth.NewAuthz(db, v...)
+	v := authz.DefaultOptions()
+	authzAuthz, err := authz.NewAuthz(db, v...)
 	if err != nil {
 		return nil, err
 	}
-	bizBiz := biz.NewBiz(datastore, authz)
+	bizBiz := biz.NewBiz(datastore, authzAuthz)
 	validator := validation.New(datastore)
 	userRetriever := &UserRetriever{
 		store: datastore,
@@ -44,7 +44,7 @@ func InitializeWebServer(config *Config) (server.Server, error) {
 		biz:       bizBiz,
 		val:       validator,
 		retriever: userRetriever,
-		authz:     authz,
+		authz:     authzAuthz,
 	}
 	serverServer, err := NewWebServer(string2, serverConfig)
 	if err != nil {

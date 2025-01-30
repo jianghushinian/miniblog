@@ -11,13 +11,13 @@ package apiserver
 
 import (
 	"github.com/google/wire"
+	"github.com/onexstack/onexstack/pkg/authz"
 
 	"github.com/onexstack/miniblog/internal/apiserver/biz"
 	"github.com/onexstack/miniblog/internal/apiserver/pkg/validation"
 	"github.com/onexstack/miniblog/internal/apiserver/store"
 	ginmw "github.com/onexstack/miniblog/internal/pkg/middleware/gin"
 	"github.com/onexstack/miniblog/internal/pkg/server"
-	"github.com/onexstack/miniblog/pkg/auth"
 )
 
 func InitializeWebServer(*Config) (server.Server, error) {
@@ -31,7 +31,7 @@ func InitializeWebServer(*Config) (server.Server, error) {
 			wire.Struct(new(UserRetriever), "*"),
 			wire.Bind(new(ginmw.UserRetriever), new(*UserRetriever)),
 		),
-		auth.ProviderSet,
+		authz.ProviderSet,
 	)
 	return nil, nil
 }

@@ -5,4 +5,4 @@
 // version of this repository is https://github.com/onexstack/onex.
 
 // Package store defines the storage interface for miniblog.
-package store // import "github.com/onexstack/miniblog/internal/miniblog/store"
+package store // import "github.com/onexstack/miniblog/internal/apiserver/store"

@@ -13,8 +13,10 @@ import (
 	"syscall"
 	"time"
 
+	"github.com/onexstack/onexstack/pkg/authz"
 	genericoptions "github.com/onexstack/onexstack/pkg/options"
 	"github.com/onexstack/onexstack/pkg/store/where"
+	"github.com/onexstack/onexstack/pkg/token"
 	"gorm.io/gorm"
 
 	"github.com/onexstack/miniblog/internal/apiserver/biz"
@@ -26,8 +28,6 @@ import (
 	"github.com/onexstack/miniblog/internal/pkg/log"
 	mw "github.com/onexstack/miniblog/internal/pkg/middleware/gin"
 	"github.com/onexstack/miniblog/internal/pkg/server"
-	"github.com/onexstack/miniblog/pkg/auth"
-	"github.com/onexstack/miniblog/pkg/token"
 )
 
 const (
@@ -74,7 +74,7 @@ type ServerConfig struct {
 	biz       biz.IBiz
 	val       *validation.Validator
 	retriever mw.UserRetriever
-	authz     *auth.Authz
+	authz     *authz.Authz
 }
 
 // NewUnionServer 根据配置创建联合服务器.

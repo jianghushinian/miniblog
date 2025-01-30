@@ -11,12 +11,12 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/onexstack/onexstack/pkg/core"
+	"github.com/onexstack/onexstack/pkg/token"
 
 	"github.com/onexstack/miniblog/internal/apiserver/model"
 	"github.com/onexstack/miniblog/internal/pkg/contextx"
 	"github.com/onexstack/miniblog/internal/pkg/errno"
 	"github.com/onexstack/miniblog/internal/pkg/log"
-	"github.com/onexstack/miniblog/pkg/token"
 )
 
 // UserRetriever 用于根据用户名获取用户的接口.

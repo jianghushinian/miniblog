@@ -13,7 +13,10 @@ import (
 	"sync"
 
 	"github.com/jinzhu/copier"
+	"github.com/onexstack/onexstack/pkg/authn"
+	"github.com/onexstack/onexstack/pkg/authz"
 	"github.com/onexstack/onexstack/pkg/store/where"
+	"github.com/onexstack/onexstack/pkg/token"
 	"golang.org/x/sync/errgroup"
 	"google.golang.org/protobuf/types/known/timestamppb"
 
@@ -25,8 +28,6 @@ import (
 	"github.com/onexstack/miniblog/internal/pkg/known"
 	"github.com/onexstack/miniblog/internal/pkg/log"
 	apiv1 "github.com/onexstack/miniblog/pkg/api/apiserver/v1"
-	"github.com/onexstack/miniblog/pkg/auth"
-	"github.com/onexstack/miniblog/pkg/token"
 )
 
 // UserBiz 定义处理用户请求所需的方法.
@@ -51,13 +52,13 @@ type UserExpansion interface {
 // userBiz 是 UserBiz 接口的实现.
 type userBiz struct {
 	store store.IStore
-	authz *auth.Authz
+	authz *authz.Authz
 }
 
 // 确保 userBiz 实现了 UserBiz 接口.
 var _ UserBiz = (*userBiz)(nil)
 
-func New(store store.IStore, authz *auth.Authz) *userBiz {
+func New(store store.IStore, authz *authz.Authz) *userBiz {
 	return &userBiz{store: store, authz: authz}
 }
 
@@ -71,7 +72,7 @@ func (b *userBiz) Login(ctx context.Context, rq *apiv1.LoginRequest) (*apiv1.Log
 	}
 
 	// 对比传入的明文密码和数据库中已加密过的密码是否匹配
-	if err := auth.Compare(userM.Password, rq.GetPassword()); err != nil {
+	if err := authn.Compare(userM.Password, rq.GetPassword()); err != nil {
 		log.W(ctx).Errorw("Failed to compare password", "err", err)
 		return nil, errno.ErrPasswordInvalid
 	}
@@ -105,12 +106,12 @@ func (b *userBiz) ChangePassword(ctx context.Context, rq *apiv1.ChangePasswordRe
 		return nil, err
 	}
 
-	if err := auth.Compare(userM.Password, rq.GetOldPassword()); err != nil {
+	if err := authn.Compare(userM.Password, rq.GetOldPassword()); err != nil {
 		log.W(ctx).Errorw("Failed to compare password", "err", err)
 		return nil, errno.ErrPasswordInvalid
 	}
 
-	userM.Password, _ = auth.Encrypt(rq.GetNewPassword())
+	userM.Password, _ = authn.Encrypt(rq.GetNewPassword())
 	if err := b.store.User().Update(ctx, userM); err != nil {
 		return nil, err
 	}

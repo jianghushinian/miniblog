@@ -6,7 +6,7 @@
 
 package store
 
-//go:generate mockgen -destination mock_store.go -package store github.com/onexstack/miniblog/internal/miniblog/store IStore,UserStore,PostStore,ConcretePostStore
+//go:generate mockgen -destination mock_store.go -package store github.com/onexstack/miniblog/internal/apiserver/store IStore,UserStore,PostStore,ConcretePostStore
 
 import (
 	"context"
@@ -37,6 +37,8 @@ type IStore interface {
 
 	User() UserStore
 	Post() PostStore
+	// ConcretePosts 是一个示例 store 实现，用来演示在 Go 中如何直接与 DB 交互.
+	ConcretePost() ConcretePostStore
 }
 
 // transactionKey 用于在 context.Context 中存储事务上下文的键.
@@ -98,4 +100,9 @@ func (store *datastore) User() UserStore {
 // Posts 返回一个实现了 PostStore 接口的实例.
 func (store *datastore) Post() PostStore {
 	return newPostStore(store)
+}
+
+// ConcretePosts 返回一个实现了 ConcretePostStore 接口的实例.
+func (store *datastore) ConcretePost() ConcretePostStore {
+	return newConcretePostStore(store)
 }
