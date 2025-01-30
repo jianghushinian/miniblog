@@ -10,6 +10,7 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
+	"github.com/onexstack/onexstack/pkg/core"
 
 	"github.com/onexstack/miniblog/internal/pkg/log"
 	apiv1 "github.com/onexstack/miniblog/pkg/api/apiserver/v1"
@@ -18,9 +19,8 @@ import (
 // Healthz 服务健康检查.
 func (h *Handler) Healthz(c *gin.Context) {
 	log.W(c.Request.Context()).Infow("Healthz handler is called", "method", "Healthz", "status", "healthy")
-	// 返回 JSON 响应
-	c.JSON(200, &apiv1.HealthzResponse{
+	core.WriteResponse(c, apiv1.HealthzResponse{
 		Status:    apiv1.ServiceStatus_Healthy,
 		Timestamp: time.Now().Format(time.DateTime),
-	})
+	}, nil)
 }
