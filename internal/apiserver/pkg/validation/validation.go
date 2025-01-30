@@ -9,6 +9,8 @@ package validation
 import (
 	"regexp"
 
+	"github.com/google/wire"
+
 	"github.com/onexstack/miniblog/internal/apiserver/store"
 	"github.com/onexstack/miniblog/internal/pkg/errno"
 )
@@ -30,6 +32,10 @@ var (
 	emailRegex  = regexp.MustCompile(`^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$`) // 邮箱格式
 	phoneRegex  = regexp.MustCompile(`^1[3-9]\d{9}$`)                                    // 中国手机号
 )
+
+// ProviderSet 是一个 Wire 的 Provider 集合，用于声明依赖注入的规则.
+// 包含 New 构造函数，用于生成 Validator 实例.
+var ProviderSet = wire.NewSet(New)
 
 // New 创建一个新的 Validator 实例.
 func New(store store.IStore) *Validator {
