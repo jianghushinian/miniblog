@@ -1,7 +1,5 @@
 # miniblog 项目
 
-- 更多「云原生 AI 实战营」项目见：[云原生 AI 实战营项目介绍](https://feizaonet.feishu.cn/wiki/G8qYwXGVnikjGWkBVn9cTzOxnGc)
-
 ## 项目介绍
 
 **小而美的 Go 实战项目，入门但不简单。**
@@ -14,19 +12,6 @@ miniblog（微博客） 是一个 Go 语言入门项目，用来完成用户注�
 miniblog 实现了以下 2 类功能：
 - **用户管理：** 支持用户注册、用户登录、获取用户列表、获取用户详情、更新用户信息、修改用户密码等操作；
 - **博客管理：** 支持创建博客、获取博客列表、获取博客详情、更新博客内容、删除博客等操作。
-
-**本项目适合人群**
-
-- 刚学习完 Go 基础语法，想快速学习，以参与公司 Go 语言开发工作的开发者；
-- 掌握 Go 基础语法，零 Go 应用开发经验，想通过完整的实战，快速、系统的学习 Go 开发的开发者；
-- 有意从事 Go 应用开发，但尚未入门或入门尚浅的开发者；
-- 有过 Go 应用开发经验，但想了解某一部分开发方法的开发者。
-
-## 配套课程
-
-miniblog 项目配套的课程见：[Go 项目开发中级实战课](https://feizaonet.feishu.cn/wiki/MxWJwzKDpiiBG7kcGypccnNVn1F#share-LK7mduGIPoqe29xtZMScHKOVnLd)
-
-![](./docs/images/中级实战课课程目录合并图.png)
 
 ## 功能特点
 
@@ -76,10 +61,6 @@ mb-apiserver 支持内存数据库和 MySQL 数据库，默认使用内存数据
 ## Feedback
 
 如果您有任何反馈，请通过 `colin404@foxmail.com` 与我联系。
-
-## Contacts
-
-<img src="./docs/images/three-code.png" alt="" width="900" />
 
 ## License
 
